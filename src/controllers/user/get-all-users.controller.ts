@@ -29,7 +29,7 @@ const getAllUsers = async (
       },
     };
 
-    logger.error('Users fetched successfully');
+    logger.info('Users fetched successfully');
 
     res
       .status(httpStatus.OK)

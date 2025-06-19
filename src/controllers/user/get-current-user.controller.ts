@@ -25,7 +25,7 @@ const getCurrentUser = async (
       user,
     };
 
-    logger.error('User fetched successfully');
+    logger.info('User fetched successfully');
     res
       .status(httpStatus.OK)
       .json(successResponse(responseMessage, responseData));

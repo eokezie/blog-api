@@ -57,7 +57,7 @@ const updateCurrentUser = async (
       user,
     };
 
-    logger.error('User updated successfully');
+    logger.info('User updated successfully');
     res
       .status(httpStatus.OK)
       .json(successResponse(responseMessage, responseData));

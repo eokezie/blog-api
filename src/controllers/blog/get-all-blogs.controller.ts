@@ -44,7 +44,7 @@ const getAllBlogs = async (
       },
     };
 
-    logger.error('Blogs fetched successfully by:', {
+    logger.info('Blogs fetched successfully by:', {
       user: userId,
     });
 
