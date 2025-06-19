@@ -24,6 +24,25 @@ export const countBlog = async (query: any) => {
   return await Blog.countDocuments(query);
 };
 
+export const countBlogByUserIdAndBlogStatus = async (query: any) => {
+  return await Blog.countDocuments(query);
+};
+
+export const findBlogByUserIdandStatus = async (
+  query: any,
+  limit: number,
+  offset: number,
+) => {
+  return await Blog.find(query)
+    .select('-banner.publicId -__v')
+    .populate('author', '-createdAt -updatedAt -__v')
+    .limit(limit)
+    .skip(offset)
+    .sort({ createdAt: -1 })
+    .lean()
+    .exec();
+};
+
 export const findSpecificBlog = async (
   query: any,
   limit: number,
@@ -37,4 +56,16 @@ export const findSpecificBlog = async (
     .sort({ createdAt: -1 })
     .lean()
     .exec();
+};
+
+export const findBlogBySlug = async (slug: string) => {
+  return await Blog.findOne({ slug })
+    .select('-banner.publicId -__v')
+    .populate('author', '-createdAt -updatedAt -__v')
+    .lean()
+    .exec();
+};
+
+export const getBlogByIdForUpdate = async (blogId: string) => {
+  return await Blog.findById(blogId).select('-__v').exec();
 };

@@ -6,12 +6,18 @@ import { validateRequest } from '@/middlewares/validate-request';
 import {
   createBlogValidator,
   getAllBlogsValidator,
+  getBlockBySlugValidator,
+  getBlockByUserValidator,
+  updateBlogValidator,
 } from '@/middlewares/validators/blog-validator';
 import authorize from '@/middlewares/authorize';
 import uploadBlogBanner from '@/middlewares/upload-blog-banner';
-import createBlog from '@/controllers/blog/create-blog';
-import getAllBlogs from '@/controllers/blog/get-all-blogs';
-import deleteBlog from '@/controllers/blog/delete-blog';
+import createBlog from '@/controllers/blog/create-blog.controller';
+import getAllBlogs from '@/controllers/blog/get-all-blogs.controller';
+import deleteBlog from '@/controllers/blog/delete-blog.controller';
+import getBlogBySlug from '@/controllers/blog/get-blog-by-slug.controller';
+import getBlogsByUser from '@/controllers/blog/get-blogs-by-user.controller';
+import updateBlog from '@/controllers/blog/update-blog.controller';
 
 const upload = multer();
 const router = Router();
@@ -33,6 +39,32 @@ router.get(
   getAllBlogsValidator,
   validateRequest,
   getAllBlogs,
+);
+router.get(
+  '/user/:userId',
+  authenticate,
+  authorize(['admin', 'user']),
+  getBlockByUserValidator,
+  validateRequest,
+  getBlogsByUser,
+);
+router.get(
+  '/:slug',
+  authenticate,
+  authorize(['admin', 'user']),
+  getBlockBySlugValidator,
+  validateRequest,
+  getBlogBySlug,
+);
+router.put(
+  '/:blogId',
+  authenticate,
+  authorize(['admin']),
+  upload.single('banner_image'),
+  updateBlogValidator,
+  validateRequest,
+  uploadBlogBanner('put'),
+  updateBlog,
 );
 router.delete('/:blogId', authenticate, authorize(['admin']), deleteBlog);
 
