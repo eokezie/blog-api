@@ -42,4 +42,6 @@ export default {
   WHITELIST_ORIGINS: ['http://localhost:4500'],
   JWT_PRIVATE_KEY,
   JWT_PUBLIC_KEY,
+  defaultResLimit: 20,
+  defaultResOffset: 0,
 };

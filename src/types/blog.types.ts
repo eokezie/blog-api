@@ -22,3 +22,5 @@ export interface IComment {
   userId: Types.ObjectId;
   content: string;
 }
+
+export type BlogData = Pick<IBlog, 'title' | 'content' | 'banner' | 'status'>;

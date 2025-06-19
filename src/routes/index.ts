@@ -1,10 +1,11 @@
 import { Router } from 'express';
 
 import authRoutes from '@/routes/auth.routes';
+import blogRoutes from '@/routes/blog.routes';
 
 const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/', (_req, res) => {
   res.status(200).json({
     message: 'API is live',
     status: 'ok',
@@ -15,5 +16,6 @@ router.get('/', (req, res) => {
 });
 
 router.use('/auth', authRoutes);
+router.use('/blogs', blogRoutes);
 
 export default router;

@@ -11,6 +11,7 @@ const httpStatus: THttpStatus = {
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   NOT_FOUND: 404,
+  LARGE_PAYLOAD: 413,
   INTERNAL_SERVER_ERROR: 500,
 };
 
