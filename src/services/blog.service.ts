@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import { BlogData } from '@/types/blog.types';
 import Blog from '@/models/blog.model';
 
@@ -9,6 +10,10 @@ export const blogById = async (blogId: string) => {
   return await Blog.findById(blogId).select('banner.publicId').exec();
 };
 
+export const blogsByAuthor = async (query: any) => {
+  return await Blog.find(query).select('banner.publicId').lean().exec();
+};
+
 export const blogAuthorById = async (blogId: string) => {
   return await Blog.findById(blogId)
     .select('author banner.publicId')
@@ -18,6 +23,10 @@ export const blogAuthorById = async (blogId: string) => {
 
 export const deleteSingleBlog = async (blogId: string) => {
   return await Blog.deleteOne({ _id: blogId });
+};
+
+export const deleteManyBlogs = async (query: any) => {
+  return await Blog.deleteMany(query);
 };
 
 export const countBlog = async (query: any) => {
@@ -68,4 +77,14 @@ export const findBlogBySlug = async (slug: string) => {
 
 export const getBlogByIdForUpdate = async (blogId: string) => {
   return await Blog.findById(blogId).select('-__v').exec();
+};
+
+export const getBlogByIdSelectCommentCounts = async (
+  blogId: string | Types.ObjectId,
+) => {
+  return await Blog.findById(blogId).select('_id commentsCount').exec();
+};
+
+export const getBlogByIdSelectId = async (blogId: string) => {
+  return await Blog.findById(blogId).select('_id').lean().exec();
 };
